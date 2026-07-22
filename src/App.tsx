@@ -314,7 +314,11 @@ function App() {
 
   return (
     <>
-      {!showResults && <Header onTimeUp={handleTimeUp} onSave={handleSave} />}
+      {!showResults && <Header onTimeUp={handleTimeUp} onSave={handleSave} onFinish={() => {
+        handleSave()
+        localStorage.setItem('hackerrank-finished', 'true')
+        setShowResults(true)
+      }} allSaved={allSaved} />}
       {saved && <div className="save-toast">✓ Progress saved successfully</div>}
       {showTimeUp && <TimeUpModal onClose={() => { setShowTimeUp(false); setShowResults(true); }} />}
       {showResults ? (

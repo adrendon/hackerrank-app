@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react'
 interface HeaderProps {
   onTimeUp: () => void
   onSave: () => void
+  onFinish: () => void
+  allSaved: boolean
 }
 
 const INITIAL_TIME = 90 * 60 // Change to 90 * 60 for 90 minutes
 
-function Header({ onTimeUp, onSave }: HeaderProps) {
+function Header({ onTimeUp, onSave, onFinish, allSaved }: HeaderProps) {
   const [timeLeft, setTimeLeft] = useState(() => {
     const saved = localStorage.getItem('hackerrank-timer')
     if (saved) {
@@ -54,7 +56,11 @@ function Header({ onTimeUp, onSave }: HeaderProps) {
         </div>
       </div>
       <div className="header-right">
-        <button className="btn-save" onClick={onSave}>Save &amp; Proceed</button>
+        {allSaved ? (
+          <button className="btn-finish" onClick={onFinish}>Finish Assessment</button>
+        ) : (
+          <button className="btn-save" onClick={onSave}>Save &amp; Proceed</button>
+        )}
       </div>
     </header>
   )

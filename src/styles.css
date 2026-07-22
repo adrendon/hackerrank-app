@@ -1558,3 +1558,27 @@ body {
 .breakdown-item.breakdown-incorrect { border-left: 3px solid #f87171; }
 .breakdown-item.breakdown-submitted { border-left: 3px solid #60a5fa; }
 .breakdown-item.breakdown-skipped { border-left: 3px solid #374151; }
+
+
+/* Finish button */
+.btn-finish {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  animation: pulse-green 1.5s infinite;
+}
+
+.btn-finish:hover {
+  background-color: #059669;
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+}
