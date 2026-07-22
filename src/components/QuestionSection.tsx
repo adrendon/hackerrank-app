@@ -4,6 +4,7 @@ import { QuestionData } from '../App'
 interface QuestionSectionProps {
   question: QuestionData
   onSave?: (answers: number[]) => void
+  allSaved?: boolean
 }
 
 function renderDescription(text: string) {
@@ -24,7 +25,7 @@ function renderDescription(text: string) {
   })
 }
 
-function QuestionSection({ question, onSave }: QuestionSectionProps) {
+function QuestionSection({ question, onSave, allSaved }: QuestionSectionProps) {
   const [selected, setSelected] = useState<number[]>([])
   const [showAnswer, setShowAnswer] = useState(false)
   const toggleOption = (idx: number) => {
@@ -128,9 +129,14 @@ function QuestionSection({ question, onSave }: QuestionSectionProps) {
           <button className="clear-selection" onClick={clearSelection}>
             Clear Selection
           </button>
-          {selected.length > 0 && onSave && (
+          {selected.length > 0 && onSave && !allSaved && (
             <button className="save-question-btn" onClick={() => onSave(selected)}>
               Save &amp; Next →
+            </button>
+          )}
+          {selected.length > 0 && onSave && allSaved && (
+            <button className="save-question-btn" onClick={() => onSave(selected)}>
+              Save ✓
             </button>
           )}
         </div>

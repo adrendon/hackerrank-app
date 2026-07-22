@@ -241,6 +241,20 @@ function App() {
       const next = new Set(prev)
       next.add(questionId)
       localStorage.setItem('hackerrank-saved-questions', JSON.stringify([...next]))
+
+      // Navigate to next unanswered question
+      const allQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+      // First look after current question
+      let nextQ = allQuestions.find(q => q > questionId && !next.has(q))
+      // If none found after, look from beginning
+      if (!nextQ) {
+        nextQ = allQuestions.find(q => !next.has(q))
+      }
+      if (nextQ) {
+        setActiveQuestion(nextQ)
+      }
+      // If all answered, stay on current (button won't show anyway)
+
       return next
     })
     if (answers) {
@@ -249,10 +263,6 @@ function App() {
         localStorage.setItem('hackerrank-user-answers', JSON.stringify(next))
         return next
       })
-    }
-    // Advance to next question
-    if (questionId < 13) {
-      setActiveQuestion(questionId + 1)
     }
   }, [])
 
@@ -274,24 +284,26 @@ function App() {
     setShowTimeUp(true)
   }, [handleSave])
 
+  const allSaved = savedQuestions.size >= 13
+
   const renderContent = () => {
     if (activeQuestion === 1) {
       return <Section1FlightValidation key={1} onSave={() => markQuestionSaved(1)} />
     }
     if (activeQuestion >= 2 && activeQuestion <= 4) {
       const q = s2Questions.find(q => q.id === activeQuestion)
-      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} /> : null
+      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
     }
     if (activeQuestion >= 5 && activeQuestion <= 9) {
       const q = s3Questions.find(q => q.id === activeQuestion)
-      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} /> : null
+      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
     }
     if (activeQuestion === 10) {
       return <Section4Challenge key={10} onSave={() => markQuestionSaved(10)} />
     }
     if (activeQuestion >= 11 && activeQuestion <= 13) {
       const q = s5Questions.find(q => q.id === activeQuestion)
-      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} /> : null
+      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
     }
     return null
   }
