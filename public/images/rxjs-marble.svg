@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 320" width="380" height="320">
+  <rect width="380" height="320" fill="#f8f9fa" rx="8"/>
+
+  <!-- Search Term -->
+  <text x="20" y="30" font-family="Arial" font-size="14" fill="#333" font-weight="bold">Search Term</text>
+  <rect x="20" y="45" width="30" height="30" fill="#ff6b6b" rx="2"/>
+  <line x1="50" y1="60" x2="80" y2="60" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="55" y="56" font-family="Arial" font-size="9" fill="#333">product</text>
+  <rect x="80" y="45" width="30" height="30" fill="#ff6b6b" rx="2"/>
+  <text x="88" y="64" font-family="Arial" font-size="9" fill="white">1s</text>
+  <line x1="110" y1="60" x2="140" y2="60" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="140" y="45" width="30" height="30" fill="#ff8a8a" rx="2"/>
+
+  <!-- Category -->
+  <text x="20" y="110" font-family="Arial" font-size="14" fill="#333" font-weight="bold">Category</text>
+  <rect x="20" y="125" width="30" height="30" fill="#51cf66" rx="2"/>
+  <text x="28" y="144" font-family="Arial" font-size="9" fill="white">0s</text>
+  <line x1="50" y1="140" x2="80" y2="140" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="80" y="125" width="30" height="30" fill="#51cf66" rx="2"/>
+  <text x="88" y="144" font-family="Arial" font-size="9" fill="white">1s</text>
+  <line x1="110" y1="140" x2="145" y2="140" stroke="#666" stroke-width="1.5"/>
+  <text x="115" y="136" font-family="Arial" font-size="9" fill="#333">Electronics</text>
+  <line x1="145" y1="140" x2="175" y2="140" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="175" y="125" width="30" height="30" fill="#51cf66" rx="2"/>
+  <text x="183" y="144" font-family="Arial" font-size="9" fill="white">2s</text>
+
+  <!-- Sorting -->
+  <text x="20" y="190" font-family="Arial" font-size="14" fill="#333" font-weight="bold">Sorting</text>
+  <rect x="20" y="205" width="30" height="30" fill="#339af0" rx="2"/>
+  <line x1="50" y1="220" x2="80" y2="220" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="80" y="205" width="30" height="30" fill="#339af0" rx="2"/>
+  <line x1="110" y1="220" x2="140" y2="220" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="140" y="205" width="30" height="30" fill="#339af0" rx="2"/>
+  <line x1="170" y1="220" x2="220" y2="220" stroke="#666" stroke-width="1.5"/>
+  <text x="175" y="216" font-family="Arial" font-size="9" fill="#333">Price: Low to High</text>
+  <line x1="220" y1="220" x2="250" y2="220" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="250" y="205" width="30" height="30" fill="#1c7ed6" rx="2"/>
+
+  <!-- Search Results -->
+  <text x="20" y="270" font-family="Arial" font-size="14" fill="#333" font-weight="bold">Search Results</text>
+  <rect x="20" y="285" width="30" height="30" fill="#ffd43b" rx="2"/>
+  <text x="28" y="304" font-family="Arial" font-size="9" fill="#333">0s</text>
+  <line x1="50" y1="300" x2="80" y2="300" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="80" y="285" width="30" height="30" fill="#ffd43b" rx="2"/>
+  <text x="88" y="304" font-family="Arial" font-size="9" fill="#333">1s</text>
+  <line x1="110" y1="300" x2="140" y2="300" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="140" y="285" width="30" height="30" fill="#ffd43b" rx="2"/>
+  <text x="148" y="304" font-family="Arial" font-size="9" fill="#333">2s</text>
+  <line x1="170" y1="300" x2="200" y2="300" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="200" y="285" width="30" height="30" fill="#ffd43b" rx="2"/>
+  <text x="208" y="304" font-family="Arial" font-size="9" fill="#333">3s</text>
+  <line x1="230" y1="300" x2="270" y2="300" stroke="#666" stroke-width="1.5"/>
+  <text x="235" y="296" font-family="Arial" font-size="9" fill="#333">Result</text>
+  <line x1="270" y1="300" x2="300" y2="300" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="300" y="285" width="30" height="30" fill="#fcc419" rx="2"/>
+  <text x="308" y="304" font-family="Arial" font-size="9" fill="#333">4s</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

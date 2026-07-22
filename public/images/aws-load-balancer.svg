@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 450" width="400" height="450">
+  <rect width="400" height="450" fill="#f8f9fa"/>
+  
+  <!-- Users text -->
+  <text x="100" y="40" font-family="Arial" font-size="16" fill="#00bcd4">Users</text>
+  
+  <!-- Lines from users to load balancer -->
+  <line x1="120" y1="50" x2="200" y2="180" stroke="#ffd700" stroke-width="1.5"/>
+  <line x1="140" y1="50" x2="200" y2="180" stroke="#ffd700" stroke-width="1.5"/>
+  <line x1="160" y1="50" x2="200" y2="180" stroke="#ffd700" stroke-width="1.5"/>
+  <line x1="180" y1="50" x2="200" y2="180" stroke="#ffd700" stroke-width="1.5"/>
+  <line x1="200" y1="50" x2="200" y2="180" stroke="#ffd700" stroke-width="1.5"/>
+  
+  <!-- Load Balancer circle -->
+  <circle cx="200" cy="210" r="45" fill="#00e5ff" stroke="#00bcd4" stroke-width="2"/>
+  
+  <!-- Load Balancer icon -->
+  <rect x="180" y="195" width="40" height="30" fill="none" stroke="#880088" stroke-width="2" rx="3"/>
+  <line x1="190" y1="210" x2="190" y2="220" stroke="#880088" stroke-width="2"/>
+  <line x1="200" y1="210" x2="200" y2="220" stroke="#880088" stroke-width="2"/>
+  <line x1="210" y1="210" x2="210" y2="220" stroke="#880088" stroke-width="2"/>
+  
+  <!-- Load Balancer text -->
+  <text x="80" y="215" font-family="Arial" font-size="13" fill="#333">Load Balancer</text>
+  
+  <!-- Lines to instances -->
+  <line x1="160" y1="250" x2="100" y2="330" stroke="#333" stroke-width="1.5"/>
+  <line x1="200" y1="255" x2="200" y2="330" stroke="#333" stroke-width="1.5"/>
+  <line x1="240" y1="250" x2="300" y2="330" stroke="#333" stroke-width="1.5"/>
+  
+  <!-- Path labels -->
+  <text x="100" y="290" font-family="Arial" font-size="11" fill="#333" transform="rotate(-40 100 290)">/images/</text>
+  <text x="185" y="295" font-family="Arial" font-size="11" fill="#333">/scripts/</text>
+  <text x="255" y="290" font-family="Arial" font-size="11" fill="#333" transform="rotate(40 255 290)">/applications/</text>
+  
+  <!-- EC2 instances -->
+  <rect x="70" y="330" width="60" height="40" fill="#ff9800" rx="5"/>
+  <text x="90" y="355" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">C3</text>
+  
+  <rect x="170" y="330" width="60" height="40" fill="#ff9800" rx="5"/>
+  <text x="200" y="355" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">C3</text>
+  
+  <rect x="270" y="330" width="60" height="40" fill="#ff9800" rx="5"/>
+  <text x="300" y="355" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">C3</text>
+  
+  <!-- Apps label -->
+  <text x="85" y="395" font-family="Arial" font-size="12" fill="#333">Apps</text>
+  
+  <!-- Auto Scaling Group -->
+  <rect x="145" y="390" width="130" height="30" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5" rx="4"/>
+  <text x="210" y="410" font-family="Arial" font-size="11" fill="#333" text-anchor="middle">Auto Scaling Group</text>
+</svg>

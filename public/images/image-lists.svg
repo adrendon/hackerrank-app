@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 420" width="140" height="420">
+  <rect width="140" height="420" fill="#ffffff" rx="4"/>
+  
+  <!-- Fruits header -->
+  <text x="20" y="30" font-family="Arial" font-size="14" fill="#333" font-weight="bold">Fruits</text>
+  
+  <!-- Apple -->
+  <circle cx="70" cy="65" r="25" fill="#ff4444"/>
+  <circle cx="62" cy="55" r="8" fill="#ff6666"/>
+  <rect x="68" y="38" width="3" height="8" fill="#4a2" rx="1"/>
+  <ellipse cx="76" cy="40" rx="6" ry="4" fill="#4a2"/>
+  <text x="70" y="105" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">Apple</text>
+  
+  <!-- Mango -->
+  <ellipse cx="70" cy="140" rx="22" ry="18" fill="#ffcc00"/>
+  <ellipse cx="60" cy="135" rx="8" ry="6" fill="#ff9900"/>
+  <text x="70" y="175" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">Mango</text>
+  
+  <!-- Guvava -->
+  <circle cx="70" cy="210" r="22" fill="#88cc44"/>
+  <circle cx="65" cy="205" r="6" fill="#99dd55"/>
+  <text x="70" y="248" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">Guvava</text>
+  
+  <!-- Vegetables header -->
+  <text x="20" y="275" font-family="Arial" font-size="14" fill="#333" font-weight="bold">Vegetables</text>
+  
+  <!-- Cabbage -->
+  <circle cx="70" cy="310" r="22" fill="#88bb44"/>
+  <circle cx="70" cy="310" r="14" fill="#99cc55"/>
+  <circle cx="70" cy="310" r="7" fill="#aaddaa"/>
+  <text x="70" y="348" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">Cabbage</text>
+  
+  <!-- Carrot -->
+  <polygon points="55,370 85,370 70,415" fill="#ff8833"/>
+  <rect x="60" y="360" width="5" height="14" fill="#44aa22" rx="2"/>
+  <rect x="68" y="358" width="5" height="16" fill="#44aa22" rx="2"/>
+  <rect x="75" y="360" width="5" height="14" fill="#44aa22" rx="2"/>
+  <text x="70" y="418" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">Carrot</text>
+</svg>
