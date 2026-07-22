@@ -5,7 +5,7 @@ interface HeaderProps {
   onSave: () => void
 }
 
-const INITIAL_TIME = 15 * 60 // Change to 90 * 60 for 90 minutes
+const INITIAL_TIME = 90 * 60 // Change to 90 * 60 for 90 minutes
 
 function Header({ onTimeUp, onSave }: HeaderProps) {
   const [timeLeft, setTimeLeft] = useState(() => {
