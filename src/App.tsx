@@ -267,8 +267,12 @@ function App() {
   }, [])
 
   const handleSave = useCallback(() => {
+    // If on a coding question, mark it as saved
+    if (activeQuestion === 1 || activeQuestion === 10) {
+      markQuestionSaved(activeQuestion)
+    }
     saveAssessment({
-      answers: {},
+      answers: userAnswers,
       code1Ts: '',
       code1Html: '',
       code10: '',
@@ -276,7 +280,7 @@ function App() {
     })
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
-  }, [])
+  }, [activeQuestion, markQuestionSaved, userAnswers])
 
   const handleTimeUp = useCallback(() => {
     handleSave()
