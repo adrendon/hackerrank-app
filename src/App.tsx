@@ -306,18 +306,18 @@ function App() {
     }
     if (activeQuestion >= 2 && activeQuestion <= 4) {
       const q = s2Questions.find(q => q.id === activeQuestion)
-      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
+      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} savedAnswers={userAnswers[q.id]} /> : null
     }
     if (activeQuestion >= 5 && activeQuestion <= 9) {
       const q = s3Questions.find(q => q.id === activeQuestion)
-      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
+      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} savedAnswers={userAnswers[q.id]} /> : null
     }
     if (activeQuestion === 10) {
       return <Section4Challenge key={10} onSave={(testsPassed) => markQuestionSaved(10, undefined, testsPassed)} />
     }
     if (activeQuestion >= 11 && activeQuestion <= 13) {
       const q = s5Questions.find(q => q.id === activeQuestion)
-      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
+      return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} savedAnswers={userAnswers[q.id]} /> : null
     }
     return null
   }

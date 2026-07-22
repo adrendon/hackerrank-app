@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 interface ResultsScreenProps {
   savedQuestions: Set<number>
   userAnswers: Record<number, number[]>
@@ -5,7 +7,6 @@ interface ResultsScreenProps {
   onRestart: () => void
 }
 
-// Correct answers for each question (imported from data)
 const correctAnswers: Record<number, number[]> = {
   2: [0],
   3: [0],
@@ -20,6 +21,36 @@ const correctAnswers: Record<number, number[]> = {
   13: [0],
 }
 
+const questionNames: Record<number, string> = {
+  1: 'Flight Validation',
+  2: 'AWS Serverless Application',
+  3: 'AWS Web App: Load Balancing',
+  4: 'AWS EC2 - Remove a Load Balancer',
+  5: 'DOM',
+  6: 'Image Lists',
+  7: 'Output Prediction',
+  8: 'Link Opening',
+  9: 'Mailto',
+  10: 'List Segregation',
+  11: 'RxJS Operator Marble Diagrams',
+  12: 'Cache Reused Components',
+  13: 'Named Routes With Lazy-Loading',
+}
+
+const explanations: Record<number, string> = {
+  2: 'DAX helps with read/write throttling on DynamoDB.',
+  3: 'With cross-zone disabled, 50% to each AZ: AZ A gets 25% per target (2 targets), AZ B gets 16.67% per target (3 targets).',
+  4: 'Auto-scaling is independent of the load balancer and will continue to work.',
+  5: 'DOM is a tree structure and interaction is through event handlers. It can be manipulated with multiple languages, not just JavaScript.',
+  6: 'Correct HTML description list uses <dt> for terms and <dd> for descriptions.',
+  7: '<abbr> shows content text "HTML" (not title), <bdo dir="rtl"> reverses text.',
+  8: 'iframe target must match iframe name attribute. href (not src) is used. HTML attributes are case-insensitive.',
+  9: 'mailto: (case insensitive) with href attribute is valid. "mail:" and "link=" are not.',
+  11: 'combineLatest + retry + debounceTime + catchError meets all requirements.',
+  12: 'The new Angular 13 event for router-outlet is "activate".',
+  13: 'URL pattern aux(outlet1:route1/details) requires path:"" > children > path:"aux" > children with outlet.',
+}
+
 function arraysEqual(a: number[], b: number[]): boolean {
   if (a.length !== b.length) return false
   const sorted1 = [...a].sort()
@@ -28,43 +59,50 @@ function arraysEqual(a: number[], b: number[]): boolean {
 }
 
 function ResultsScreen({ savedQuestions, userAnswers, codeResults, onRestart }: ResultsScreenProps) {
+  const [expanded, setExpanded] = useState<Set<number>>(new Set())
   const totalQuestions = 13
-  const completed = savedQuestions.size
 
-  // Calculate correct answers
   let correctCount = 0
   let incorrectCount = 0
-  const questionResults: { id: number; label: string; status: 'correct' | 'incorrect' | 'submitted' | 'skipped' }[] = []
+  const questionResults: { id: number; label: string; status: 'correct' | 'incorrect' | 'skipped' }[] = []
 
   for (let i = 1; i <= 13; i++) {
     if (i === 1 || i === 10) {
-      // Coding questions - check if tests passed
       const testsPassed = codeResults[i] === true
       if (!savedQuestions.has(i)) {
-        questionResults.push({ id: i, label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`, status: 'skipped' })
+        questionResults.push({ id: i, label: `Q${i} - ${questionNames[i]}`, status: 'skipped' })
       } else if (testsPassed) {
         correctCount++
-        questionResults.push({ id: i, label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`, status: 'correct' })
+        questionResults.push({ id: i, label: `Q${i} - ${questionNames[i]}`, status: 'correct' })
       } else {
         incorrectCount++
-        questionResults.push({ id: i, label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`, status: 'incorrect' })
+        questionResults.push({ id: i, label: `Q${i} - ${questionNames[i]}`, status: 'incorrect' })
       }
     } else {
       const userAns = userAnswers[i]
       const correct = correctAnswers[i]
       if (!userAns || !savedQuestions.has(i)) {
-        questionResults.push({ id: i, label: `Q${i}`, status: 'skipped' })
+        questionResults.push({ id: i, label: `Q${i} - ${questionNames[i]}`, status: 'skipped' })
       } else if (correct && arraysEqual(userAns, correct)) {
         correctCount++
-        questionResults.push({ id: i, label: `Q${i}`, status: 'correct' })
+        questionResults.push({ id: i, label: `Q${i} - ${questionNames[i]}`, status: 'correct' })
       } else {
         incorrectCount++
-        questionResults.push({ id: i, label: `Q${i}`, status: 'incorrect' })
+        questionResults.push({ id: i, label: `Q${i} - ${questionNames[i]}`, status: 'incorrect' })
       }
     }
   }
 
   const percentage = Math.round((correctCount / totalQuestions) * 100)
+
+  const toggleExpand = (id: number) => {
+    setExpanded(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
 
   return (
     <div className="results-screen">
@@ -103,7 +141,7 @@ function ResultsScreen({ savedQuestions, userAnswers, codeResults, onRestart }: 
             <span className="stat-label">Incorrect</span>
           </div>
           <div className="stat-item stat-skipped">
-            <span className="stat-num">{totalQuestions - completed}</span>
+            <span className="stat-num">{totalQuestions - correctCount - incorrectCount}</span>
             <span className="stat-label">Skipped</span>
           </div>
         </div>
@@ -112,14 +150,43 @@ function ResultsScreen({ savedQuestions, userAnswers, codeResults, onRestart }: 
           <h3>Question Details</h3>
           <div className="breakdown-grid">
             {questionResults.map((q) => (
-              <div key={q.id} className={`breakdown-item breakdown-${q.status}`}>
-                <span className="breakdown-label">{q.label}</span>
-                <span className={`breakdown-status ${q.status}`}>
-                  {q.status === 'correct' && '✓ Correct'}
-                  {q.status === 'incorrect' && '✗ Incorrect'}
-                  {q.status === 'submitted' && '✓ Submitted'}
-                  {q.status === 'skipped' && '○ Skipped'}
-                </span>
+              <div key={q.id}>
+                <div
+                  className={`breakdown-item breakdown-${q.status} ${q.status === 'incorrect' ? 'clickable' : ''}`}
+                  onClick={() => q.status === 'incorrect' && toggleExpand(q.id)}
+                >
+                  <span className="breakdown-label">
+                    {q.status === 'incorrect' && (expanded.has(q.id) ? '▾ ' : '▸ ')}
+                    {q.label}
+                  </span>
+                  <span className={`breakdown-status ${q.status}`}>
+                    {q.status === 'correct' && '✓ Correct'}
+                    {q.status === 'incorrect' && '✗ Incorrect'}
+                    {q.status === 'skipped' && '○ Skipped'}
+                  </span>
+                </div>
+                {q.status === 'incorrect' && expanded.has(q.id) && (
+                  <div className="breakdown-detail">
+                    {userAnswers[q.id] && (
+                      <p className="detail-your-answer">
+                        <strong>Your answer:</strong> Option {userAnswers[q.id].map(i => i + 1).join(', ')}
+                      </p>
+                    )}
+                    {correctAnswers[q.id] && (
+                      <p className="detail-correct-answer">
+                        <strong>Correct answer:</strong> Option {correctAnswers[q.id].map(i => i + 1).join(', ')}
+                      </p>
+                    )}
+                    {(q.id === 1 || q.id === 10) && (
+                      <p className="detail-correct-answer">
+                        <strong>Note:</strong> All tests must pass for this coding question.
+                      </p>
+                    )}
+                    {explanations[q.id] && (
+                      <p className="detail-explanation">{explanations[q.id]}</p>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

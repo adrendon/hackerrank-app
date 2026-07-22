@@ -5,6 +5,7 @@ interface QuestionSectionProps {
   question: QuestionData
   onSave?: (answers: number[]) => void
   allSaved?: boolean
+  savedAnswers?: number[]
 }
 
 function renderDescription(text: string) {
@@ -25,8 +26,8 @@ function renderDescription(text: string) {
   })
 }
 
-function QuestionSection({ question, onSave, allSaved }: QuestionSectionProps) {
-  const [selected, setSelected] = useState<number[]>([])
+function QuestionSection({ question, onSave, allSaved, savedAnswers }: QuestionSectionProps) {
+  const [selected, setSelected] = useState<number[]>(savedAnswers || [])
   const [showAnswer, setShowAnswer] = useState(false)
   const toggleOption = (idx: number) => {
     if (question.type === 'single') {
