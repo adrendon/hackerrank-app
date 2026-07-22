@@ -293,10 +293,15 @@ function App() {
   }, [activeQuestion, markQuestionSaved, userAnswers])
 
   const handleTimeUp = useCallback(() => {
+    // Auto-save current question if it has answers selected
+    const pendingAnswers = JSON.parse(localStorage.getItem('hackerrank-user-answers') || '{}')
+    if (pendingAnswers[activeQuestion] && !savedQuestions.has(activeQuestion)) {
+      markQuestionSaved(activeQuestion, pendingAnswers[activeQuestion])
+    }
     handleSave()
     localStorage.setItem('hackerrank-finished', 'true')
     setShowTimeUp(true)
-  }, [handleSave])
+  }, [handleSave, activeQuestion, savedQuestions, markQuestionSaved])
 
   const allSaved = savedQuestions.size >= 13
 

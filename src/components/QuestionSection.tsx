@@ -30,15 +30,22 @@ function QuestionSection({ question, onSave, allSaved, savedAnswers }: QuestionS
   const [selected, setSelected] = useState<number[]>(savedAnswers || [])
   const [showAnswer, setShowAnswer] = useState(false)
   const toggleOption = (idx: number) => {
+    let newSelected: number[]
     if (question.type === 'single') {
-      setSelected([idx])
+      newSelected = [idx]
     } else {
-      setSelected((prev) => {
-        if (prev.includes(idx)) {
-          return prev.filter((i) => i !== idx)
-        }
-        return [...prev, idx]
-      })
+      if (selected.includes(idx)) {
+        newSelected = selected.filter((i) => i !== idx)
+      } else {
+        newSelected = [...selected, idx]
+      }
+    }
+    setSelected(newSelected)
+    // Auto-save selection (without navigating) so if time runs out it's saved
+    if (newSelected.length > 0) {
+      const prev = JSON.parse(localStorage.getItem('hackerrank-user-answers') || '{}')
+      prev[question.id] = newSelected
+      localStorage.setItem('hackerrank-user-answers', JSON.stringify(prev))
     }
   }
 
@@ -133,11 +140,6 @@ function QuestionSection({ question, onSave, allSaved, savedAnswers }: QuestionS
           {selected.length > 0 && onSave && !allSaved && (
             <button className="save-question-btn" onClick={() => onSave(selected)}>
               Save &amp; Next →
-            </button>
-          )}
-          {selected.length > 0 && onSave && allSaved && (
-            <button className="save-question-btn" onClick={() => onSave(selected)}>
-              Save ✓
             </button>
           )}
         </div>
