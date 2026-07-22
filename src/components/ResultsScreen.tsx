@@ -1,6 +1,7 @@
 interface ResultsScreenProps {
   savedQuestions: Set<number>
   userAnswers: Record<number, number[]>
+  codeResults: Record<number, boolean>
   onRestart: () => void
 }
 
@@ -26,7 +27,7 @@ function arraysEqual(a: number[], b: number[]): boolean {
   return sorted1.every((v, i) => v === sorted2[i])
 }
 
-function ResultsScreen({ savedQuestions, userAnswers, onRestart }: ResultsScreenProps) {
+function ResultsScreen({ savedQuestions, userAnswers, codeResults, onRestart }: ResultsScreenProps) {
   const totalQuestions = 13
   const completed = savedQuestions.size
 
@@ -37,13 +38,17 @@ function ResultsScreen({ savedQuestions, userAnswers, onRestart }: ResultsScreen
 
   for (let i = 1; i <= 13; i++) {
     if (i === 1 || i === 10) {
-      // Coding questions - just submitted or not
-      questionResults.push({
-        id: i,
-        label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`,
-        status: savedQuestions.has(i) ? 'submitted' : 'skipped'
-      })
-      if (savedQuestions.has(i)) correctCount++
+      // Coding questions - check if tests passed
+      const testsPassed = codeResults[i] === true
+      if (!savedQuestions.has(i)) {
+        questionResults.push({ id: i, label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`, status: 'skipped' })
+      } else if (testsPassed) {
+        correctCount++
+        questionResults.push({ id: i, label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`, status: 'correct' })
+      } else {
+        incorrectCount++
+        questionResults.push({ id: i, label: `Q${i} - ${i === 1 ? 'Flight Validation' : 'List Segregation'}`, status: 'incorrect' })
+      }
     } else {
       const userAns = userAnswers[i]
       const correct = correctAnswers[i]

@@ -235,8 +235,12 @@ function App() {
     const data = localStorage.getItem('hackerrank-user-answers')
     return data ? JSON.parse(data) : {}
   })
+  const [codeResults, setCodeResults] = useState<Record<number, boolean>>(() => {
+    const data = localStorage.getItem('hackerrank-code-results')
+    return data ? JSON.parse(data) : {}
+  })
 
-  const markQuestionSaved = useCallback((questionId: number, answers?: number[]) => {
+  const markQuestionSaved = useCallback((questionId: number, answers?: number[], testsPassed?: boolean) => {
     setSavedQuestions(prev => {
       const next = new Set(prev)
       next.add(questionId)
@@ -244,16 +248,13 @@ function App() {
 
       // Navigate to next unanswered question
       const allQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-      // First look after current question
       let nextQ = allQuestions.find(q => q > questionId && !next.has(q))
-      // If none found after, look from beginning
       if (!nextQ) {
         nextQ = allQuestions.find(q => !next.has(q))
       }
       if (nextQ) {
         setActiveQuestion(nextQ)
       }
-      // If all answered, stay on current (button won't show anyway)
 
       return next
     })
@@ -264,12 +265,21 @@ function App() {
         return next
       })
     }
+    if (testsPassed !== undefined) {
+      setCodeResults(prev => {
+        const next = { ...prev, [questionId]: testsPassed }
+        localStorage.setItem('hackerrank-code-results', JSON.stringify(next))
+        return next
+      })
+    }
   }, [])
 
   const handleSave = useCallback(() => {
     // If on a coding question, mark it as saved
     if (activeQuestion === 1 || activeQuestion === 10) {
-      markQuestionSaved(activeQuestion)
+      const key = activeQuestion === 1 ? 'hackerrank-code1-passed' : 'hackerrank-code10-passed'
+      const passed = localStorage.getItem(key) === 'true'
+      markQuestionSaved(activeQuestion, undefined, passed)
     }
     saveAssessment({
       answers: userAnswers,
@@ -292,7 +302,7 @@ function App() {
 
   const renderContent = () => {
     if (activeQuestion === 1) {
-      return <Section1FlightValidation key={1} onSave={() => markQuestionSaved(1)} />
+      return <Section1FlightValidation key={1} onSave={(testsPassed) => markQuestionSaved(1, undefined, testsPassed)} />
     }
     if (activeQuestion >= 2 && activeQuestion <= 4) {
       const q = s2Questions.find(q => q.id === activeQuestion)
@@ -303,7 +313,7 @@ function App() {
       return q ? <QuestionSection key={q.id} question={q} onSave={(ans) => markQuestionSaved(q.id, ans)} allSaved={allSaved} /> : null
     }
     if (activeQuestion === 10) {
-      return <Section4Challenge key={10} onSave={() => markQuestionSaved(10)} />
+      return <Section4Challenge key={10} onSave={(testsPassed) => markQuestionSaved(10, undefined, testsPassed)} />
     }
     if (activeQuestion >= 11 && activeQuestion <= 13) {
       const q = s5Questions.find(q => q.id === activeQuestion)
@@ -325,12 +335,14 @@ function App() {
         <ResultsScreen
           savedQuestions={savedQuestions}
           userAnswers={userAnswers}
+          codeResults={codeResults}
           onRestart={() => {
             localStorage.removeItem('hackerrank-timer')
             localStorage.removeItem('hackerrank-saved-questions')
             localStorage.removeItem('hackerrank-assessment')
             localStorage.removeItem('hackerrank-finished')
             localStorage.removeItem('hackerrank-user-answers')
+            localStorage.removeItem('hackerrank-code-results')
             window.location.reload()
           }}
         />

@@ -286,7 +286,7 @@ function AnimatedPreview() {
   )
 }
 
-function Section1FlightValidation({ onSave }: { onSave?: () => void }) {
+function Section1FlightValidation({ onSave }: { onSave?: (testsPassed: boolean) => void }) {
   const [activeTab, setActiveTab] = useState<EditorTab>('ts')
   const [bottomTab, setBottomTab] = useState<BottomTab>('problems')
   const [tsCode, setTsCode] = useState(TS_DEFAULT)
@@ -296,9 +296,11 @@ function Section1FlightValidation({ onSave }: { onSave?: () => void }) {
   const [testOutput, setTestOutput] = useState('')
   const [problems, setProblems] = useState<string[]>([])
   const [isRunning, setIsRunning] = useState(false)
+  const [testsPassed, setTestsPassed] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
   const [showSolution, setShowSolution] = useState(false)
   const [bottomHeight, setBottomHeight] = useState(180)
+
   // Column widths as percentages
   const [col1Width, setCol1Width] = useState(30)
   const [col2Width, setCol2Width] = useState(70)
@@ -461,6 +463,8 @@ function Section1FlightValidation({ onSave }: { onSave?: () => void }) {
 
       setTestOutput(summary)
       setProblems(failed > 0 ? [`${failed} test(s) failed`] : [])
+      setTestsPassed(failed === 0)
+      localStorage.setItem('hackerrank-code1-passed', String(failed === 0))
       setIsRunning(false)
     }, 2000)
   }

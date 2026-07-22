@@ -42,7 +42,7 @@ function segregateList(inputList: LanguageDetails[]): OutputObject {
 }
 `
 
-function Section4Challenge({ onSave }: { onSave?: () => void }) {
+function Section4Challenge({ onSave }: { onSave?: (testsPassed: boolean) => void }) {
   const [bottomTab, setBottomTab] = useState<BottomTab>('testresults')
   const [code, setCode] = useState(TS_DEFAULT)
   const [line, setLine] = useState(1)
@@ -160,6 +160,7 @@ function Section4Challenge({ onSave }: { onSave?: () => void }) {
         '\n\n' + results.join('\n')
 
       setTestOutput(summary)
+      localStorage.setItem('hackerrank-code10-passed', String(failed === 0))
       setIsRunning(false)
     }, 2000)
   }
